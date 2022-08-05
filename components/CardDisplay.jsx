@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from 'next/router';
-import React from 'react';
+import { useRouter } from "next/router";
+import React from "react";
 
-
-function CardDisplay({Title, patientImage, caseDescription}) {
-    const id = 1;
-    const router = useRouter();
+function CardDisplay({ Title, caseDescription, id, patientImage }) {
+  // const id = 1;
+  const router = useRouter();
   return (
     <div
       onClick={() => router.push(`/case-details/${id}`)}
@@ -15,7 +14,7 @@ function CardDisplay({Title, patientImage, caseDescription}) {
         className="object-cover rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
         src={patientImage}
         alt=""
-        style={{ width: '350px', height: '280px' }}
+        style={{ width: "350px", height: "280px" }}
       />
 
       <div className="flex flex-col justify-between p-4 leading-normal ">

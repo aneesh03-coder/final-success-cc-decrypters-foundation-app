@@ -1,14 +1,52 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from 'next/router';
-import React from 'react'
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { paymentOverviewFetch } from "../../store/paymentsSlice";
+import { wrapper } from "../../store/store";
+import { useSession } from "next-auth/react";
+import { useSelector } from "react-redux/es/exports";
 
-const CaseDetails = () => {
-    const router = useRouter();
-    const caseDetailsId = "ywyuyroyrorwruwr"
+const CaseDetails = ({ allPayments }) => {
+  const { data: session } = useSession();
+  const allCampaigns = useSelector((state) => state.campaign?.allCampaigns[0]);
+  const [info, setInfo] = useState([]);
+  const [totalDonations, setTotalDonations] = useState([]);
+  let completeSetOfPayments = [];
+
+  allPayments.forEach((payment) => {
+    completeSetOfPayments.push(payment);
+  });
+
+  const [showDonationDetails, setShowDonationDetails] = useState(
+    completeSetOfPayments
+  );
+  showDonationDetails.splice(4, showDonationDetails.length - 4);
+
+  const router = useRouter();
+  const caseDetailsId = router.query.caseDetails;
+  const selectedCampaign1 = [];
+  useEffect(() => {
+    allCampaigns?.forEach((campaign) => {
+      if (campaign.id == caseDetailsId) {
+        selectedCampaign1.push(campaign);
+      }
+    });
+    setInfo(selectedCampaign1[0]);
+  });
+
+  useEffect(() => {
+    let finalDonationAmount = 0;
+    allPayments.forEach((payment) => {
+      finalDonationAmount =
+        finalDonationAmount + (payment?.donation_amount || 0);
+    });
+    setTotalDonations(finalDonationAmount);
+  });
+
   return (
     <div className="max-w-6xl mx-auto mt-4 mb-4 p-3">
       <div
-        onClick={() => router.push('/')}
+        onClick={() => router.push("/")}
         className="flex flex-row items-center gap-[3px] cursor-pointer text-[#8f0d34] hover:text-[#530319]"
       >
         <div className="overflow-hidden">
@@ -41,16 +79,12 @@ const CaseDetails = () => {
         {/* Left Side */}
 
         <div>
-          <h4 className="text-xl font-bold mb-3">
-            {/* {data.Title} */}
-            Rahul is really struggling for his life and needs an immediate liver
-            transplant
-          </h4>
+          <h4 className="text-xl font-bold mb-3">{info.Title}</h4>
 
           <img
             className="object-cover md:h-auto md:w-auto rounded-md mb-3"
-            // src={info?.patient_image}
-            src="https://my.viewmedica.com/thumbs/alzheimers_1280.jpg?v=20151114"
+            src={info?.patient_image}
+            // src="https://my.viewmedica.com/thumbs/alzheimers_1280.jpg?v=20151114"
             alt=""
           />
 
@@ -70,8 +104,8 @@ const CaseDetails = () => {
               </svg>
             </div>
             <p className="text-slate-500 text-lg font-semibold">
-              {/* {session?.user?.name || info?.requestor || 'Anonymous'}  */}{' '}
-              Marty started this fundraiser
+              {info?.requestor || "Anonymous"}{" "}
+              {/* Marty started this fundraiser */}
             </p>
           </div>
           <div className="flex flex-row items-center gap-3 border-b-2 border-t-2 py-2 mt-3 px-4">
@@ -79,31 +113,21 @@ const CaseDetails = () => {
             <span>|</span>
             <span>
               Goal <span className="font-semibold">$</span>
-              {/* {info?.goal} */}
-              12000
+              {info?.goal}
             </span>
             <span>|</span>
             <span>
               Raised <span className="font-semibold">$</span>
-              {/* {totalDonations} */}
-              8000
+              {totalDonations}
             </span>
           </div>
 
           <div className="mt-3 mb-14">
             <h3 className="text-lg font-semibold mb-3">
               {/* {info?.Title} */}
-              Rahul is really struggling for his life and needs an immediate
-              liver transplant
             </h3>
-            {/* <div>{info?.patient_description}</div> */}
-            <div>
-              Rahul is really struggling for his life and needs an immediate
-              liver transplant. liver transplant is a surgery that removes a
-              liver that no longer functions properly (liver failure) and
-              replaces it with a healthy liver from a deceased donor or a
-              portion of a healthy liver from a living donor. Please help
-            </div>
+            <div>{info?.patient_description}</div>
+
             {/* <ReadMore>{info?.patient_description}</ReadMore> */}
           </div>
 
@@ -111,32 +135,21 @@ const CaseDetails = () => {
             <h3 className="text-lg font-semibold mb-3">Patient Details</h3>
             <div className="px-4">
               <h5 className="text-lg font-semibold mb-3">
-                Name:{' '}
+                Name:{" "}
                 <span className="font-light">
-                  {/* {info?.patient_name || 'Anonymous'}{' '} */}
-                  John Doe
+                  {info?.patient_name || "Anonymous"}{" "}
                 </span>
               </h5>
               <h5 className="text-lg font-semibold mb-3">
-                Age:{' '}
-                <span className="font-light">
-                  {/* {info?.patient_age} */}
-                  45
-                </span>
+                Age: <span className="font-light">{info?.patient_age}</span>
               </h5>
               <h5 className="text-lg font-semibold mb-3">
-                Gender:{' '}
-                <span className="font-light">
-                  Male
-                  {/* {info?.patient_gender}  */}
-                </span>
+                Gender:{" "}
+                <span className="font-light">{info?.patient_gender}</span>
               </h5>
               <h5 className="text-lg font-semibold mb-3">
-                Address:{' '}
-                <span className="font-light">
-                  London
-                  {/* {info?.patient_address} */}
-                </span>
+                Address:{" "}
+                <span className="font-light">{info?.patient_address}</span>
               </h5>
             </div>
           </div>
@@ -160,24 +173,20 @@ const CaseDetails = () => {
               </div>
               <div>
                 <h5 className="text-lg font-semibold mb-3">
-                  Name:{' '}
+                  Name:{" "}
                   <span className="font-light">
-                    Aneesh
-                    {/* {info?.requestor || 'Anonymous'}{' '} */}
+                    {info?.requestor || "Anonymous"}{" "}
                   </span>
                 </h5>
                 <h5 className="text-lg font-semibold mb-3">
-                  Email:{' '}
+                  Email:{" "}
                   <span className="font-light">
-                    {'***** (Hidden due to security)'}
+                    {"***** (Hidden due to security)"}
                   </span>
                 </h5>
                 <h5 className="text-lg font-semibold mb-3">
-                  Phone:{' '}
-                  <span className="font-light">
-                    986869775
-                    {/* {info?.requester_contact} */}
-                  </span>
+                  Phone:{" "}
+                  <span className="font-light">{info?.requester_contact}</span>
                 </h5>
               </div>
             </div>
@@ -188,12 +197,11 @@ const CaseDetails = () => {
 
         <div className="bg-white shadow-lg rounded-md p-4 w-full">
           <h5 className="text-lg font-semibold mb-3">
-            {' '}
+            {" "}
             <span className="font-light">
-              {/* ${totalDonations}  */}
-              4000
-              USD raised of $12000
-              {/* {info?.goal}{' '} */}
+              ${totalDonations}
+              USD raised of
+              {info?.goal}{" "}
             </span>
           </h5>
           <form className="flex flex-col space-y-2 py-2">
@@ -201,7 +209,7 @@ const CaseDetails = () => {
             <input
               type="text"
               required
-            //   value={name}
+              //   value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
               className="bg-gray-50 rounded-lg p-3 outline-none"
@@ -210,14 +218,11 @@ const CaseDetails = () => {
             <input
               required
               placeholder="Price"
-            //   value={price}
+              //   value={price}
               onChange={(e) => setPrice(e.target.value)}
               className="bg-gray-50 rounded-lg p-3 outline-none"
             />
-            <p className="mb-3">
-                {/* {allPayments.length}  */}
-            3
-            donations</p>
+            <p className="mb-3">{allPayments.length} donations</p>
             <button
               className="btn bg-[#8f0d34] hover:bg-[#530319] p-3 mb-3 w-full rounded-md text-white font-bold"
               onClick={(e) => {
@@ -246,15 +251,15 @@ const CaseDetails = () => {
               </svg>
             </div>
             <p className="text-slate-500 text-lg font-semibold">
-              {/* {allPayments.length == 0
-                ? 'Be the first to donate'
-                : 'We would love for you to care'} */}
-              We would love for you to care
+              {allPayments.length == 0
+                ? "Be the first to donate"
+                : "We would love for you to care"}
             </p>
           </div>
-          {/* {showDonationDetails.map((payments, index) => ( */}
+
+          {showDonationDetails.map((payments, index) => (
             <div
-            //   key={index}
+              //   key={index}
               className="flex flex-row items-center gap-3 border-t-2 py-3"
             >
               <div className="relative w-10 h-10 overflow-hidden rounded-full bg-[#8f0d3450]">
@@ -273,30 +278,48 @@ const CaseDetails = () => {
               </div>
               <div>
                 <p className="text-slate-500 text-lg font-semibold">
-                  {'Anonymous'}
+                  {"Anonymous"}
                 </p>
                 <div className="text-slate-500 text-sm font-semibold flex items-center">
-                  Donated $500
-                  {/* {payments?.donation_amount || 'Offline for this cause'}
+                  Donated $
+                  {payments?.donation_amount || "Offline for this cause"}
                   {payments?.donation_amount == undefined ? (
-                    ''
+                    ""
                   ) : (
                     <div className="text-xs ml-1"> USD for this cause</div>
-                  )} */} for this cause
-                  {/* {"$"} <div className="text-xs"> USD for this cause</div> */}
+                  )}{" "}
                 </div>
               </div>
             </div>
-          {/* ))} */}
+          ))}
           <div className="flex justify-center xs text-gray-400">
-            {/* {allPayments.length - showDonationDetails.length} */} 4
-            &nbsp;
+            {allPayments.length - showDonationDetails.length} &nbsp;
             <div> more donations made ... </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default CaseDetails
+export default CaseDetails;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    const caseDetailsId1 = context.query.caseDetails;
+
+    const response = await fetch("http:localhost:3000/api/getPaymentDetails", {
+      method: "POST",
+      body: JSON.stringify({ campaign: { campaignId: caseDetailsId1 } }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    store.dispatch(paymentOverviewFetch(data));
+
+    return { props: { allPayments: data } };
+  }
+);
