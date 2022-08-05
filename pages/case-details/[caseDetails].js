@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import { paymentOverviewFetch } from "../../store/paymentsSlice";
 import { wrapper } from "../../store/store";
 import { useSession } from "next-auth/react";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector } from "react-redux";
+import { loadStripe } from "@stripe/stripe-js"
+import axios from "axios"
 
 const CaseDetails = ({ allPayments }) => {
   const { data: session } = useSession();
@@ -42,6 +44,52 @@ const CaseDetails = ({ allPayments }) => {
     });
     setTotalDonations(finalDonationAmount);
   });
+
+  const [name, setName] = useState("")
+  const [price, setPrice] = useState(0)
+
+  const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+  const stripePromice = loadStripe(publishableKey)
+
+  const makePayment = async () => {
+
+    const paymentDetails = {
+      campaignId: caseDetailsId,
+      paymentId: '324jh32b432kjb32',
+      donater: name,
+      donation_amount: Number(price),
+    }
+
+    const response = await fetch('/api/addPaymentDetails', {
+      method: 'POST',
+      body: JSON.stringify({paymentDetails}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const data = await response.json()
+  }
+
+  const checkout = async () => {
+    makePayment()
+
+    const stripe = await stripePromice
+
+    const checkoutSession = await axios.post('/api/create-stripe-session', {
+      donation: {name, price}
+    })
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    })
+
+    if(result.error) {
+      alert(result.error.message)
+    }
+  }
+
+
 
   return (
     <div className="max-w-6xl mx-auto mt-4 mb-4 p-3">
@@ -209,7 +257,7 @@ const CaseDetails = ({ allPayments }) => {
             <input
               type="text"
               required
-              //   value={name}
+              value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
               className="bg-gray-50 rounded-lg p-3 outline-none"
@@ -218,7 +266,7 @@ const CaseDetails = ({ allPayments }) => {
             <input
               required
               placeholder="Price"
-              //   value={price}
+              value={price}
               onChange={(e) => setPrice(e.target.value)}
               className="bg-gray-50 rounded-lg p-3 outline-none"
             />
