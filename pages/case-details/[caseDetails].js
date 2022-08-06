@@ -67,7 +67,7 @@ const CaseDetails = ({ allPayments }) => {
       donation_amount: Number(price),
     };
 
-    const response = await fetch("/api/addPaymentDetails", {
+    const response = await fetch("api/addPaymentDetails", {
       method: "POST",
       body: JSON.stringify({ paymentDetails }),
       headers: {
@@ -366,13 +366,16 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     const caseDetailsId1 = context.query.caseDetails;
 
-    const response = await fetch("http:localhost:3000/api/getPaymentDetails", {
-      method: "POST",
-      body: JSON.stringify({ campaign: { campaignId: caseDetailsId1 } }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}api/getPaymentDetails`,
+      {
+        method: "POST",
+        body: JSON.stringify({ campaign: { campaignId: caseDetailsId1 } }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await response.json();
 

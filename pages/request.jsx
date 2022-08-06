@@ -69,7 +69,7 @@ function Request({ Session }) {
     };
 
     try {
-      const response = await fetch("/api/addCampaign", {
+      const response = await fetch("api/addCampaign", {
         method: "POST",
         body: JSON.stringify({ newCampaign }),
         headers: {
