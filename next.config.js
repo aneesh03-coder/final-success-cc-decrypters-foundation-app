@@ -7,7 +7,7 @@ const nextConfig = {
       {
         source: "/api/:path*",
         destination:
-          "https://final-success-cc-decrypters-foundation-hq1akc0fc-aneesh03-coder.vercel.app/:path*",
+          "https://final-success-cc-decrypters-foundation-app-aneesh03-coder.vercel.app/:path*",
       },
     ];
   },
