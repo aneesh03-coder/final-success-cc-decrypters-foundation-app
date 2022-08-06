@@ -5,8 +5,8 @@ import { paymentOverviewFetch } from "../../store/paymentsSlice";
 import { wrapper } from "../../store/store";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
-import { loadStripe } from "@stripe/stripe-js"
-import axios from "axios"
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
 const CaseDetails = ({ allPayments }) => {
   const { data: session } = useSession();
@@ -45,51 +45,48 @@ const CaseDetails = ({ allPayments }) => {
     setTotalDonations(finalDonationAmount);
   });
 
-  const [name, setName] = useState("")
-  const [price, setPrice] = useState(0)
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
 
-  const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
-  const stripePromice = loadStripe(publishableKey)
+  const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`;
+  const stripePromice = loadStripe(publishableKey);
 
   const makePayment = async () => {
-
     const paymentDetails = {
       campaignId: caseDetailsId,
-      paymentId: '324jh32b432kjb32',
+      paymentId: "324jh32b432kjb32",
       donater: name,
       donation_amount: Number(price),
-    }
+    };
 
-    const response = await fetch('/api/addPaymentDetails', {
-      method: 'POST',
-      body: JSON.stringify({paymentDetails}),
+    const response = await fetch("/api/addPaymentDetails", {
+      method: "POST",
+      body: JSON.stringify({ paymentDetails }),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+        "Content-Type": "application/json",
+      },
+    });
 
-    const data = await response.json()
-  }
+    const data = await response.json();
+  };
 
   const checkout = async () => {
-    makePayment()
+    makePayment();
 
-    const stripe = await stripePromice
+    const stripe = await stripePromice;
 
-    const checkoutSession = await axios.post('/api/create-stripe-session', {
-      donation: {name, price}
-    })
+    const checkoutSession = await axios.post("/api/create-stripe-session", {
+      donation: { name, price },
+    });
 
     const result = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
-    })
+    });
 
-    if(result.error) {
-      alert(result.error.message)
+    if (result.error) {
+      alert(result.error.message);
     }
-  }
-
-
+  };
 
   return (
     <div className="max-w-6xl mx-auto mt-4 mb-4 p-3">
@@ -171,9 +168,7 @@ const CaseDetails = ({ allPayments }) => {
           </div>
 
           <div className="mt-3 mb-14">
-            <h3 className="text-lg font-semibold mb-3">
-              {/* {info?.Title} */}
-            </h3>
+            <h3 className="text-lg font-semibold mb-3">{info?.Title}</h3>
             <div>{info?.patient_description}</div>
 
             {/* <ReadMore>{info?.patient_description}</ReadMore> */}
@@ -247,9 +242,7 @@ const CaseDetails = ({ allPayments }) => {
           <h5 className="text-lg font-semibold mb-3">
             {" "}
             <span className="font-light">
-              ${totalDonations}
-              USD raised of
-              {info?.goal}{" "}
+              ${totalDonations} USD raised of ${info?.goal} USD
             </span>
           </h5>
           <form className="flex flex-col space-y-2 py-2">
@@ -326,7 +319,7 @@ const CaseDetails = ({ allPayments }) => {
               </div>
               <div>
                 <p className="text-slate-500 text-lg font-semibold">
-                  {"Anonymous"}
+                  {payments.donater || "Anonymous"}
                 </p>
                 <div className="text-slate-500 text-sm font-semibold flex items-center">
                   Donated $

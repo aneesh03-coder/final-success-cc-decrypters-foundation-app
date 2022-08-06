@@ -8,7 +8,7 @@ function CardDisplay({ Title, caseDescription, id, patientImage }) {
   return (
     <div
       onClick={() => router.push(`/case-details/${id}`)}
-      className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mb-3"
+      className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-6xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 mb-3 cursor-pointer"
     >
       <img
         className="object-cover rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
