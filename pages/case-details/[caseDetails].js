@@ -67,13 +67,16 @@ const CaseDetails = ({ allPayments }) => {
       donation_amount: Number(price),
     };
 
-    const response = await fetch("api/addPaymentDetails", {
-      method: "POST",
-      body: JSON.stringify({ paymentDetails }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}api/addPaymentDetails`,
+      {
+        method: "POST",
+        body: JSON.stringify({ paymentDetails }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await response.json();
   };
@@ -83,9 +86,12 @@ const CaseDetails = ({ allPayments }) => {
 
     const stripe = await stripePromice;
 
-    const checkoutSession = await axios.post("/api/create-stripe-session", {
-      donation: { name, price },
-    });
+    const checkoutSession = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}api/create-stripe-session`,
+      {
+        donation: { name, price },
+      }
+    );
 
     const result = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
