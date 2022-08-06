@@ -35,7 +35,7 @@ const CaseDetails = ({ allPayments }) => {
       }
     });
     setInfo(selectedCampaign1[0]);
-  });
+  }, []);
 
   setTimeout(() => {
     if (!info) {
@@ -50,7 +50,7 @@ const CaseDetails = ({ allPayments }) => {
         finalDonationAmount + (payment?.donation_amount || 0);
     });
     setTotalDonations(finalDonationAmount);
-  });
+  }, []);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -315,7 +315,7 @@ const CaseDetails = ({ allPayments }) => {
 
               {showDonationDetails.map((payments, index) => (
                 <div
-                  //   key={index}
+                  key={index}
                   className="flex flex-row items-center gap-3 border-t-2 py-3"
                 >
                   <div className="relative w-10 h-10 overflow-hidden rounded-full bg-[#8f0d3450]">

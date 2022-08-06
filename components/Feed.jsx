@@ -31,7 +31,7 @@ function Feed() {
 
       <div className="flex min-h-screen flex-col overflow-y-scroll scrollbar-hide">
         {info.map(({ id, patient_image, patient_description, Title }) => (
-          <div>
+          <div key={id}>
             <CardDisplay
               id={id}
               Title={Title}

@@ -209,7 +209,7 @@ function Request({ Session }) {
                           <div className="flex flex-col items-center cursor-pointer">
                             <AiOutlineCloudUpload />
                             <p className="text-sm">
-                              Click to Upload Patient's Image
+                              Click to Upload Patients Image
                             </p>
                           </div>
                         )}
