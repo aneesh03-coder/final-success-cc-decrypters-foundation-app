@@ -67,7 +67,6 @@ function Request({ Session }) {
       requester_contact: data.requesterContact,
       createdAt: serverTimestamp(),
     };
-    console.log(newCampaign);
 
     try {
       const response = await fetch("/api/addCampaign", {
@@ -78,7 +77,7 @@ function Request({ Session }) {
         },
       });
       const data = await response.json();
-      // console.log(data);
+
       successNotification();
 
       reset({
@@ -100,8 +99,6 @@ function Request({ Session }) {
     } catch (err) {
       errorNotification();
     }
-
-    console.log(newCampaign);
   };
 
   const successNotification = () =>
@@ -134,7 +131,6 @@ function Request({ Session }) {
       setWrongImageType(false);
       SetLoading(true);
 
-      //console.log(selectedFile, type)
       const uploadTask = Storage.ref(`/images/${selectedFile.name}`).put(
         selectedFile
       );
@@ -146,7 +142,7 @@ function Request({ Session }) {
           let percentage =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           //setProgress(percentage);
-          console.log(percentage + "% Done");
+          // console.log(percentage + "% Done");
         },
         console.error,
         () => {
@@ -157,7 +153,7 @@ function Request({ Session }) {
               //setFile(null);
 
               setPatientImage(url);
-              console.log("uploaded url:", url);
+              // console.log("uploaded url:", url);
             });
           SetLoading(false);
         }

@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Hello Everyone,
 
-## Getting Started
+This is a crowdfunding platform in a form of a  web app for donations for a good cause like people in need of medical help.
+Tech stack:-
+Nextjs with nextauth
+React hook form
+Stripe
+Redux on server side with Hydration
+Ssr
+Firebase firestore and storage
+Cloud functions
+Libraries like react toast
+Tailwindcss
 
-First, run the development server:
+This is a complete build that we the team of Decrypters🔥🔥🔥 made in PAPA-FAM-Success-Coaching Call held on 5th of Aug 2022. Our Team as can also be seen from the collaborators are William Gyeke, Askhay Agarwal, Marty Muhanga, Hadi Boukdir and Aneesh Kalra.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+To run this complete build:
+1. Open your VS Code(Make sure you have your plugins installed and Nodejs env installed)- If not watch this video
+https://www.youtube.com/watch?v=GPv_SbfumJw
+https://www.youtube.com/watch?v=hqakqS-AN54
+https://www.youtube.com/watch?v=CyhpRx5lkNI
+The above three for VS code extensions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+https://www.youtube.com/watch?v=GjfYHwlFI-c    -For nodejs install
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+2. git clone https://github.com/aneesh03-coder/final-success-cc-decrypters-foundation-app.git  - Do this on your terminal which you can fetch via ctrl+j. This basically clones this repo into your local
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+3. npm install- Do this in your terminal. This basically installs all the packages and dependencies listed within the package.json file.
 
-## Learn More
+4. npm run dev- This will spin up your server
 
-To learn more about Next.js, take a look at the following resources:
+And enjoy playing around with the build!🔥🔥🔥
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+FOR A COMPLETE KNOW HOW ON  HOW TO BUILD THIS WEB APPLICATION, PLEASE DO WATCH OUR SUCCESS COACHING CALL DONE BY THE ENTIRE TEAM on PAPA-FAM community.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
