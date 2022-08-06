@@ -170,6 +170,9 @@ const errorNotification = () =>
 
 
   }
+  if (!Session?.user) {
+    signIn("google");
+  }
 
 
 
@@ -179,7 +182,7 @@ const errorNotification = () =>
   return (
     <div className="w-full h-screen mt-8 mb-8">
 
-    {!Session ?(
+    {!Session ? (
       <div className="w-full h-full flex justify-center place-items-center text-3xl text-red-500">
       You need to login to start a new campaign.Redirecting you to login...
     </div>
