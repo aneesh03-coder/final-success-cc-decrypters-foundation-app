@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 export default function FourZeroFour() {
   const router = useRouter();
-
+  //Okay
   useEffect(() => {
     setTimeout(() => {
       window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}`;
