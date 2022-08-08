@@ -10,6 +10,6 @@ export default NextAuth({
 
     // ...add more providers here
   ],
-  //Lets see
+
   secret: process.env.NEXT_PUBLIC_SECRET,
 });
