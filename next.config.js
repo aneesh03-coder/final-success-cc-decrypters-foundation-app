@@ -2,15 +2,18 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination:
-          "https://final-success-cc-decrypters-foundation-app-aneesh03-coder.vercel.app/:path*",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/api/:path*",
+  //       destination: "http://localhost:3000/:path*",
+  //     },
+  //     {
+  //       source: "/api/auth/:path*",
+  //       destination: "http://localhost:3000/api/session",
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;

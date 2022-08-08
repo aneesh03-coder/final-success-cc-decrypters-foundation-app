@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 export default function FourZeroFour() {
   const router = useRouter();
 
-  useEffect(() => {
-    setTimeout(() => {
-      window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}`;
-    }, 2000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}`;
+  //   }, 2000);
+  // }, []);
 
   return (
     <>
