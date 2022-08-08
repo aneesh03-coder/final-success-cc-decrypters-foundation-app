@@ -2,6 +2,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 
+//Error
+
 function CardDisplay({ Title, caseDescription, id, patientImage }) {
   // const id = 1;
   const router = useRouter();
