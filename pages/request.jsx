@@ -167,9 +167,9 @@ function Request({ Session }) {
   }
 
   return (
-    <div className="w-full h-screen mt-8 mb-8">
+    <div className="w-full min-h-screen mt-8 mb-8">
       {!Session ? (
-        <div className="w-full h-full flex justify-center place-items-center text-3xl text-red-500">
+        <div className="w-full h-[90vh] flex justify-center  items-center text-sm text-center md:text-3xl text-red-500">
           You need to login to start a new campaign.Redirecting you to login...
         </div>
       ) : (
@@ -188,7 +188,7 @@ function Request({ Session }) {
 
           <form
             onSubmit={handleSubmit(handleSubmitData)}
-            className="flex flex-col space-y-4 max-w-[700px] items-center justify-center w-full mx-auto bg-slate-100 p-8 px-8 rounded-lg"
+            className="flex flex-col space-y-4 max-w-[700px] items-center justify-center w-full mx-auto bg-slate-100 p-8 px-8 rounded-lg "
           >
             <h3 className="text-4xl text-center my-6">Request a case</h3>
 
